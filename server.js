@@ -1,4 +1,5 @@
-var http = request('http')
+var http = require('http')
+var url = require('url')
 var port = process.argv[2]
 
 if (!port) {
@@ -7,7 +8,10 @@ if (!port) {
 }
 
 var server = http.createServer(function (request, response) {
+  var parsedUrl = url.parse(request.url, true)
+  var path = parsedUrl.pathname
   var pathWithQuery = request.url
+
   console.log('有人发请求过来啦,请求路径(带查询参数)为:' + pathWithQuery)
 
   if (path === '/') {
